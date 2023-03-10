@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+{% block title %}
+Authors
+{% endblock%}
+{% block content %}
+<a class="btn btn-primary" href="{{ url_for('add_author') }}" role="button">Add author</a>
+<table class="table">
+    <thead>
+    <tr>
+        <td scope="col">№</td>
+        <td scope="col">Author's name</td>
+        <td scope="col">Author's country</td>
+        <td scope="col">Year of birth</td>
+        <td scope="col">M/F</td>
+        <td scope="col"></td>
+        <td scope="col"></td>
+    </tr>
+    </thead>
+    {% for author in all_authors %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{author.name}}</td>
+        <td>{{author.country}}</td>
+        <td>{{author.year}}</td>
+        <td>{{author.sex}}</td>
+        <td>
+            <a class="btn btn-secondary" href="{{ url_for('edit_author', author_id=author.id) }}" role="button">Edit</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="{{ url_for('delete_author', author_id=author.id) }}" role="button">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+</table>
+{% endblock %}

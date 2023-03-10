@@ -1,0 +1,45 @@
+{% extends "layout.html" %}
+{% block title %}
+Edit book
+{% endblock%}
+{% block content %}
+
+<form action="{{ url_for('edit_book', book_id=book.id) }}" method="post" class="form-example">
+
+    <div class="form-group row">
+        <label for="name" class="col-sm-2 col-form-label">Book's name: </label>
+        <div class="form-outline w-25">
+            <input type="text" class="form-control" name="name" id="name" value="{{book.name}}" required>
+        </div>
+    </div>
+
+    {% for genre in genres %}
+    <div class="form-check form-check-inline">
+        <input class="form-check-input" type="checkbox" id={{genre}} name={{genre}} value={{genre}}
+               {%if book.genre.__contains__(genre)%} checked {%endif%}>
+        <label class="form-check-label" for={{genre}}>{{genre}}</label>
+    </div>
+    {% endfor %}
+
+    <div class="form-group row">
+        <label for="year" class="col-sm-2 col-form-label">Book's year of publishing: </label>
+        <div class="form-outline w-25">
+            <input type="number" class="form-control" name="year" id="year" value="{{book.year}}" required>
+        </div>
+    </div>
+
+    <div class="form-group">
+        <label for="author_id">Book's author:</label>
+        <select class="col-sm-5 form-control" name="author_id" id="author_id">
+            {% for author in authors %}
+            <option value={{author.id}} {% if author.id== book.author_id %} selected {% endif %}>{{author.name}}
+            </option>
+            {% endfor %}
+        </select>
+    </div>
+    <div class="col-sm-10">
+        <button type="submit" class="btn btn-primary">Edit book</button>
+    </div>
+</form>
+
+{% endblock %}

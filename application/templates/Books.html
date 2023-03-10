@@ -1,0 +1,35 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<a class="btn btn-primary" href="{{ url_for('add_book') }}" role="button">Add book</a>
+<table class="table">
+    <thead>
+    <tr>
+        <td scope="col">№</td>
+        <td scope="col">Book</td>
+        <td scope="col">Genre</td>
+        <td scope="col">Year</td>
+        <td scope="col">Author</td>
+        <td scope="col"></td>
+        <td scope="col"></td>
+    </tr>
+    </thead>
+    <tbody>
+    {% for book in all_books %}
+    <tr>
+        <td>{{loop.index}}</td>
+        <td>{{book.name}}</td>
+        <td>{{book.genre}}</td>
+        <td>{{book.year}}</td>
+        <td>{{book.author.name}}</td>
+        <td>
+            <a class="btn btn-secondary" href="{{ url_for('edit_book', book_id=book.id) }}" role="button">Edit</a>
+        </td>
+        <td>
+            <a class="btn btn-danger" href="{{ url_for('delete_book', book_id=book.id) }}" role="button">Delete</a>
+        </td>
+    </tr>
+    {% endfor %}
+    </tbody>
+</table>
+{% endblock %}
